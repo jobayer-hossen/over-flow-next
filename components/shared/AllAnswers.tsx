@@ -6,7 +6,7 @@ import { getTimestamp } from '@/lib/utils';
 import ParseHTML from './ParseHTML';
 import { AnswerFilters } from '@/constants/filters';
 import { getAnswers } from '@/lib/actions/answer.action';
-import Votes from './Votes';
+// import Votes from './Votes';
 
 interface Props {
     questionId:string
@@ -53,7 +53,7 @@ const AllAnswers = async ({questionId,userId,totalAnswers,page,filter} :Props ) 
                   </div>
                 </Link>
                 <div className="flex justify-end">
-                  <Votes />
+                  {/* <Votes /> */}
                 </div>
               </div>
 
