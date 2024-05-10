@@ -1,9 +1,11 @@
 "use client";
 
+import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
 import {
   downvoteQuestion,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
+import { toggleSavedQuestion } from "@/lib/actions/user.action";
 import { formatAndDivideNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -45,13 +47,13 @@ const Votes = ({
           path: pathname,
         });
       } else if (type === "Answer") {
-        // await upvoteAnswer({
-        //   answerId: JSON.parse(itemId),
-        //   userId: JSON.parse(userId),
-        //   hasupVoted,
-        //   hasdownVoted,
-        //   path: pathname,
-        // })
+        await upvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
       }
 
       // todo: show a toast
@@ -68,13 +70,13 @@ const Votes = ({
           path: pathname,
         });
       } else if (type === "Answer") {
-        // await downvoteAnswer({
-        //   answerId: JSON.parse(itemId),
-        //   userId: JSON.parse(userId),
-        //   hasupVoted,
-        //   hasdownVoted,
-        //   path: pathname,
-        // })
+        await downvoteAnswer({
+          answerId: JSON.parse(itemId),
+          userId: JSON.parse(userId),
+          hasupVoted,
+          hasdownVoted,
+          path: pathname,
+        });
       }
 
       // todo: show a toast
@@ -82,21 +84,13 @@ const Votes = ({
   };
 
   const handleSave = async () => {
-    if (hasSaved) {
-      return;
-    }
-    await fetch("/api/save", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        type,
-        itemId,
-        userId,
-      }),
+    await toggleSavedQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname,
     });
   };
+
   return (
     <div className="flex gap-5">
       <div className="flex-center gap-2.5">
