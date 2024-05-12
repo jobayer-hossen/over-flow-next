@@ -35,13 +35,6 @@ const Votes = ({
   const pathname = usePathname();
   const router = useRouter();
 
-  useEffect(() => {
-    viewQuestion({
-      questionId: JSON.parse(itemId),
-      userId: userId ? JSON.parse(userId) : undefined,
-    });
-  }, [itemId, userId, pathname, router]);
-
   const handleVote = async (action: string) => {
     if (!userId) {
       return;
@@ -67,6 +60,7 @@ const Votes = ({
       }
 
       // todo: show a toast
+
       return;
     }
 
@@ -100,6 +94,14 @@ const Votes = ({
       path: pathname,
     });
   };
+
+  useEffect(() => {
+      viewQuestion({
+        questionId: JSON.parse(itemId),
+        userId: userId ? JSON.parse(userId) : undefined,
+      });
+  }, [itemId, userId, pathname, router]);
+
 
   return (
     <div className="flex gap-5">
