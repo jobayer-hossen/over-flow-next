@@ -1,17 +1,22 @@
 import QuestionCard from "@/components/card/QuestionCard";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
+import Pagination from "@/components/shared/pagination/Pagination";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { QuestionFilters } from "@/constants/filters";
 import { getSavedQuestion } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs";
 
-export default async function Page() {
+export default async function Page({ searchParams }: SearchParamsProps) {
   const { userId } = auth();
   if (!userId) return null;
 
   const result = await getSavedQuestion({
     clerkId: userId,
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
   return (
     <>
@@ -56,6 +61,12 @@ export default async function Page() {
             linkTitle="Ask a Question"
           />
         )}
+      </div>
+      <div className="mt-7">
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result?.isNext}
+        />
       </div>
     </>
   );

@@ -1,7 +1,7 @@
-import { getUserAnswers } from '@/lib/actions/user.action';
-import { SearchParamsProps } from '@/types'
-import AnswerCard from '../card/AnswerCard';
-
+import { getUserAnswers } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
+import AnswerCard from "../card/AnswerCard";
+import Pagination from "./pagination/Pagination";
 
 interface Props extends SearchParamsProps {
   userId: string;
@@ -11,15 +11,15 @@ interface Props extends SearchParamsProps {
 const AnswersTab = async ({ searchParams, userId, clerkId }: Props) => {
   const result = await getUserAnswers({
     userId,
-    page: 1
-  })
+    page: searchParams.page ? +searchParams.page : 1,
+  });
 
-  console.log(result.answers)
+  console.log(result.answers);
 
   return (
     <>
-      {result.answers.map((item:any) => (
-        <AnswerCard 
+      {result.answers.map((item: any) => (
+        <AnswerCard
           key={item._id}
           clerkId={clerkId}
           _id={item._id}
@@ -27,10 +27,17 @@ const AnswersTab = async ({ searchParams, userId, clerkId }: Props) => {
           author={item.author}
           upvotes={item.upvotes.length}
           createdAt={item.createdAt}
-        />  
+        />
       ))}
-    </>
-  )
-}
 
-export default AnswersTab
+      <div className="mt-7">
+        <Pagination
+          pageNumber={searchParams.page ? +searchParams.page : 1}
+          isNext={result?.isNextAnswers}
+        />
+      </div>
+    </>
+  );
+};
+
+export default AnswersTab;

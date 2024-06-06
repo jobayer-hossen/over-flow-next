@@ -7,6 +7,7 @@ import ParseHTML from "./ParseHTML";
 import { AnswerFilters } from "@/constants/filters";
 import { getAnswers } from "@/lib/actions/answer.action";
 import Votes from "./Votes";
+import Pagination from "./pagination/Pagination";
 // import Votes from './Votes';
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
   userId: string;
   totalAnswers: number;
   page?: number;
-  filter?: number;
+  filter?: string;
 }
 
 const AllAnswers = async ({
@@ -24,7 +25,11 @@ const AllAnswers = async ({
   page,
   filter,
 }: Props) => {
-  const result = await getAnswers({ questionId });
+  const result = await getAnswers({
+    questionId,
+    page: page ? +page : 1,
+    sortBy: filter,
+  });
 
   return (
     <div className="mt-11">
@@ -76,6 +81,13 @@ const AllAnswers = async ({
             <ParseHTML data={answer.content} />
           </article>
         ))}
+      </div>
+
+      <div className="mt-7">
+        <Pagination
+          pageNumber={page ? +page : 1}
+          isNext={result?.isNextAnswers}
+        />
       </div>
     </div>
   );
