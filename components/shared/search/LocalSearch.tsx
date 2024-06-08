@@ -29,29 +29,28 @@ const LocalSearch = ({
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      if(search) {
+      if (search) {
         const newUrl = formUrlQuery({
           params: searchParams.toString(),
-          key: 'q',
-          value: search
-        })
+          key: "q",
+          value: search,
+        });
 
         router.push(newUrl, { scroll: false });
       } else {
-        if(pathname === route) {
+        if (pathname === route) {
           const newUrl = removeKeysFromQuery({
             params: searchParams.toString(),
-            keysToRemove: ['q']
-          })
+            keysToRemove: ["q"],
+          });
 
           router.push(newUrl, { scroll: false });
         }
-
       }
     }, 300);
 
-    return () => clearTimeout(delayDebounceFn)
-  }, [search, route, pathname, router, searchParams, query])
+    return () => clearTimeout(delayDebounceFn);
+  }, [search, route, pathname, router, searchParams, query]);
 
   return (
     <div
@@ -72,7 +71,7 @@ const LocalSearch = ({
         placeholder={placeholder}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="paragraph-regular no-focus placeholder background-light800_darkgradient border-none shadow-none outline-none"
+        className="paragraph-regular no-focus placeholder text-dark400_light700 border-none bg-transparent shadow-none outline-none"
       />
 
       {iconPosition === "right" && (
