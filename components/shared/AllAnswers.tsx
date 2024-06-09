@@ -31,6 +31,7 @@ const AllAnswers = async ({
     sortBy: filter,
   });
 
+  
   return (
     <div className="mt-11">
       <div className="flex items-center justify-between">
@@ -40,7 +41,7 @@ const AllAnswers = async ({
       </div>
 
       <div>
-        {result.answers.map((answer) => (
+        {result?.answers.map((answer) => (
           <article key={answer._id} className="light-border border-b py-10">
             <div className="mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
               <Link
@@ -83,8 +84,8 @@ const AllAnswers = async ({
 
       <div className="mt-10 w-full">
         <Pagination
-          pageNumber={page ? +page : 1}
-          isNext={result.isNextAnswer}
+           pageNumber={page ? +page : 1}
+           isNext={result.nextAnswers}
         />
       </div>
     </div>

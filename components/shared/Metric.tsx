@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 interface MetricProps {
-  imgUrl: string | null | undefined;
+  imgUrl: string;
   alt: string;
   value: string | number;
   title: string;

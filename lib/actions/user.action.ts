@@ -386,11 +386,3 @@ export async function getUserAnswers(params: GetUserStatsParams) {
   }
 }
 
-// export async function getAllUsers(params: GetAllUsersParams) {
-//   try {
-//     connectToDatabase();
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
