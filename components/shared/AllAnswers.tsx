@@ -8,7 +8,6 @@ import { AnswerFilters } from "@/constants/filters";
 import { getAnswers } from "@/lib/actions/answer.action";
 import Votes from "./Votes";
 import Pagination from "./pagination/Pagination";
-// import Votes from './Votes';
 
 interface Props {
   questionId: string;
