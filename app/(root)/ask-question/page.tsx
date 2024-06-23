@@ -5,13 +5,11 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const page = async () => {
-  const {userId} = auth();
+  const { userId } = auth();
 
-  if (!userId) redirect('/sign-in');
+  if (!userId) redirect("/sign-in");
 
   const mongoUser = await getUserById({ userId });
-
-  // console.log(mongoUser,'koi');
 
   return (
     <div>
@@ -19,7 +17,6 @@ const page = async () => {
 
       <div className="mt-9">
         <Question mongoUserId={JSON.stringify(mongoUser?._id)} />
-        
       </div>
     </div>
   );

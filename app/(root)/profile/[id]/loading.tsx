@@ -4,7 +4,7 @@ const Loading = () => {
   return (
     <section>
       <div className="flex flex-col items-start gap-4 lg:flex-row">
-        <Skeleton className="w-36 rounded-full h-36" />
+        <Skeleton className=" size-36 rounded-full" />
 
         <div className="mt-3">
           <Skeleton className="h-7 w-28" />

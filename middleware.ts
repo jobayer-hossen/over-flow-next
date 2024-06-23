@@ -1,4 +1,5 @@
 import { authMiddleware } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 
 export default authMiddleware({
   publicRoutes: [
@@ -10,8 +11,18 @@ export default authMiddleware({
     "/profile/:id",
     "/community",
     "/jobs",
+    "/ask-question",
   ],
   ignoredRoutes: ["/api/webhook", "/api/chatgpt"],
+
+  afterAuth(auth, req, evt) {
+    const url = req.nextUrl.clone();
+    if (!auth.userId && url.pathname === "/ask-question") {
+      url.pathname = "/sign-in";
+      return NextResponse.redirect(url);
+    }
+    return NextResponse.next();
+  },
 });
 
 export const config = {
