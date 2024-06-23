@@ -26,7 +26,17 @@ const Navbar = () => {
 
       <div className="flex-between gap-5">
         <Theme />
-
+        <UserButton
+          afterSignOutUrl="/"
+          appearance={{
+            elements: {
+              avatarBox: "h-8 w-8",
+            },
+            variables: {
+              colorPrimary: "#ff7000",
+            },
+          }}
+        />
         <SignedIn>
           <UserButton
             afterSignOutUrl="/"
@@ -39,6 +49,7 @@ const Navbar = () => {
               },
             }}
           />
+          <h2>hi</h2>
         </SignedIn>
 
         <MobileNav />
